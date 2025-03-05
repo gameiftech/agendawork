@@ -20,34 +20,50 @@
             height: 100vh;
             align-items: center;
             justify-content: flex-start;
+            padding-top: 60px; /* Espaço para o cabeçalho fixo */
+            padding-bottom: 60px; /* Espaço para o rodapé fixo */
         }
 
-        /* Cabeçalho */
+        /* Cabeçalho com logo e título */
         .header {
-            width: 100%;
-            background: linear-gradient(90deg, #0056b3, #003d80);
-            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
+            background-color: #0056b3; /* Fundo azul */
+            padding: 15px 20px; /* Adiciona espaçamento nas laterais */
         }
 
         .header img {
             max-height: 50px;
+            margin-right: 20px; /* Adiciona espaço entre a imagem e o título */
         }
 
-        /* Menu de navegação */
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white; /* Cor da frase para branco */
+            text-align: center;
+            flex-grow: 1; /* Garante que o título ocupe o espaço restante */
+            padding: 0 20px; /* Adiciona espaçamento ao redor do título */
+        }
+
+        /* Menu de navegação fixo no topo */
         .nav {
             width: 100%;
             max-width: 1200px;
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 90px;
+            position: fixed;
+            top: 90px; /* Ajuste para o cabeçalho fixo */
+            z-index: 999;
+            background-color: transparent; /* Remover fundo atrás dos botões */
+            padding: 10px 0; /* Espaçamento interno */
         }
 
         .nav a {
@@ -75,20 +91,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 100px; /* Ajuste para reduzir o espaço entre os botões e o iframe */
+            z-index: 1; /* Ajuste do z-index para garantir que o conteúdo fique acima */
         }
 
         iframe {
             width: 100%;
-            height: 100vh;
+            height: calc(100vh - 180px); /* Ajusta a altura do iframe para não ultrapassar o menu e rodapé */
             border: 0;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: -1; /* Garante que o iframe fique abaixo dos botões de navegação */
         }
 
-        /* Rodapé */
+        /* Rodapé fixo */
         .footer {
             width: 100%;
             text-align: center;
@@ -96,6 +114,10 @@
             font-size: 14px;
             color: #666;
             background: #e9ecef;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -111,23 +133,66 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
+            /* Ajuste do cabeçalho */
+            .header {
+                padding: 10px;
+            }
+
+            .header img {
+                max-height: 30px;
+            }
+
+            .title {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+
+            /* Menu de navegação */
             .nav {
                 flex-direction: column;
                 align-items: center;
+                margin-top: 1px; /* Ajuste da distância do menu */
             }
 
             .nav a {
                 width: 80%;
                 text-align: center;
             }
+
+            /* Ajuste da área do conteúdo */
+            .container {
+                margin-top: 160px; /* Distância ajustada para celulares */
+            }
+
+            /* Ajuste do iframe */
+            iframe {
+                height: calc(100vh - 220px); /* Ajusta a altura do iframe em celulares */
+            }
+
+            /* Rodapé responsivo */
+            .footer {
+                font-size: 12px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 16px;
+            }
+
+            .nav a {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com logo -->
+    <!-- Cabeçalho com logo e título -->
     <div class="header">
         <img src="logo02.jpg" alt="Work Eletro Sistemas">
+        <div class="title">SISTEMA DE AGENDAMENTO ONLINE DA WORK ELETRO SISTEMAS</div>
     </div>
 
     <!-- Menu de Navegação -->
@@ -141,10 +206,11 @@
         <iframe id="calendarFrame"></iframe>
     </div>
 
+    <!-- Rodapé -->
     <div class="footer">
-        © 2025 Work Eletro Sistemas - Todos os direitos reservados.
+        © 2025 Work Eletro Sistemas - <a href="https://www.linkedin.com/in/deividfcastro/">Desenvolvido por Deivid Castro</a>
         <br>
-        <a href="https://www.linkedin.com/in/deividfcastro/">Desenvolvido por Deivid Castro</a>
+        
     </div>
 
     <script>
