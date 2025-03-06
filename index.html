@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work Eletro Sistemas - Agendamento</title>
     <style>
-        /* Reset e configurações globais */
         * {
             margin: 0;
             padding: 0;
@@ -20,11 +19,10 @@
             height: 100vh;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 60px; /* Espaço para o cabeçalho fixo */
-            padding-bottom: 60px; /* Espaço para o rodapé fixo */
+            padding-top: 60px;
+            padding-bottom: 60px;
         }
 
-        /* Cabeçalho com logo e título */
         .header {
             position: fixed;
             top: 0;
@@ -34,25 +32,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #0056b3; /* Fundo azul */
-            padding: 15px 20px; /* Adiciona espaçamento nas laterais */
+            background-color: #0056b3;
+            padding: 15px 20px;
         }
 
         .header img {
             max-height: 50px;
-            margin-right: 20px; /* Adiciona espaço entre a imagem e o título */
+            margin-right: 20px;
         }
 
         .title {
             font-size: 24px;
             font-weight: bold;
-            color: white; /* Cor da frase para branco */
+            color: white;
             text-align: center;
-            flex-grow: 0; /* Garante que o título ocupe o espaço restante */
-            padding: 0 20px; /* Adiciona espaçamento ao redor do título */
         }
 
-        /* Menu de navegação fixo no topo */
         .nav {
             width: 100%;
             max-width: 1200px;
@@ -60,10 +55,10 @@
             justify-content: center;
             gap: 20px;
             position: fixed;
-            top: 90px; /* Ajuste para o cabeçalho fixo */
+            top: 90px;
             z-index: 999;
-            background-color: transparent; /* Remover fundo atrás dos botões */
-            padding: 10px 0; /* Espaçamento interno */
+            background-color: transparent;
+            padding: 10px 0;
         }
 
         .nav a {
@@ -83,7 +78,6 @@
             transform: scale(1.05);
         }
 
-        /* Área do conteúdo principal */
         .container {
             width: 100%;
             max-width: 1400px;
@@ -93,20 +87,17 @@
             align-items: center;
             justify-content: flex-start;
             padding: 10px;
-            margin-top: 100px; /* Ajuste para reduzir o espaço entre os botões e o iframe */
-            z-index: 1; /* Ajuste do z-index para garantir que o conteúdo fique acima */
+            margin-top: 100px;
         }
 
         iframe {
             width: 100%;
-            height: calc(100vh - 180px); /* Ajusta a altura do iframe para não ultrapassar o menu e rodapé */
+            height: calc(100vh - 180px);
             border: 0;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            z-index: -1; /* Garante que o iframe fique abaixo dos botões de navegação */
         }
 
-        /* Rodapé fixo */
         .footer {
             width: 100%;
             text-align: center;
@@ -130,116 +121,41 @@
         .footer a:hover {
             text-decoration: underline;
         }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            /* Ajuste do cabeçalho */
-            .header {
-                padding: 10px;
-            }
-
-            .header img {
-                max-height: 30px;
-            }
-
-            .title {
-                font-size: 18px;
-                padding: 0 10px;
-            }
-
-            /* Menu de navegação */
-            .nav {
-                flex-direction: column;
-                align-items: center;
-                margin-top: 1px; /* Ajuste da distância do menu */
-            }
-
-            .nav a {
-                width: 80%;
-                text-align: center;
-            }
-
-            /* Ajuste da área do conteúdo */
-            .container {
-                margin-top: 160px; /* Distância ajustada para celulares */
-            }
-
-            /* Ajuste do iframe */
-            iframe {
-                height: calc(100vh - 220px); /* Ajusta a altura do iframe em celulares */
-            }
-
-            /* Rodapé responsivo */
-            .footer {
-                font-size: 12px;
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                font-size: 16px;
-            }
-
-            .nav a {
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho com logo e título -->
     <div class="header">
         <img src="logo02.jpg" alt="Work Eletro Sistemas">
         <div class="title">SISTEMA DE AGENDAMENTO ONLINE</div>
     </div>
 
-    <!-- Menu de Navegação -->
     <div class="nav">
         <a href="?view=agendamento">📅 Agendar Serviço</a>
-        <a href="?view=calendario">📆 Ver Agendamentos</a>
+        <a href="?view=calendario">📆 Agenda da Work</a>
+        <a href="?view=chelb">📅 Agenda da Chelb</a>
     </div>
 
-    <!-- Área do Google Calendar -->
     <div class="container">
         <iframe id="calendarFrame"></iframe>
     </div>
 
-    <!-- Rodapé -->
     <div class="footer">
         © 2025 Work Eletro Sistemas - <a href="https://www.linkedin.com/in/deividfcastro/">Desenvolvido por Deivid Castro</a>
-        <br>
-        
     </div>
 
     <script>
-        // Definir qual link será carregado com base na URL
         const urlParams = new URLSearchParams(window.location.search);
         const view = urlParams.get('view');
         const iframe = document.getElementById('calendarFrame');
 
         if (view === 'calendario') {
             iframe.src = "https://calendar.google.com/calendar/embed?src=workeletrosistemaswork%40gmail.com&ctz=America%2FSao_Paulo";
+        } else if (view === 'chelb') {
+            iframe.src = "https://calendar.google.com/calendar/embed?src=72c355eb959dc6d741d2a021bb3de8fd0d4baa068cca2b35276ff14f0966b28d%40group.calendar.google.com&ctz=America%2FSao_Paulo";
         } else {
             iframe.src = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0GHdtUuFGDkvGn8GjOPodK1RKPR4lBBAyGNJ1Px7DKzyEtGv0FoM2I-22XUQFg8eYR8SHj8XtT?gv=true";
         }
-
-        // Remover elementos indesejados no iframe
-        iframe.onload = function() {
-            setTimeout(() => {
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    if (iframeDoc) {
-                        // Oculta elementos indesejados do Google Agenda
-                        const elementosParaRemover = iframeDoc.querySelectorAll("div[role='contentinfo'], footer, div[jsname]");
-                        elementosParaRemover.forEach(el => el.style.display = 'none');
-                    }
-                } catch (error) {
-                    console.warn("Não foi possível remover elementos do iframe devido a restrições de segurança.");
-                }
-            }, 2000);
-        };
     </script>
 
 </body>
