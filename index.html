@@ -33,7 +33,7 @@
             align-items: center;
             justify-content: center;
             background-color: #0056b3;
-            padding: 15px 20px;
+            padding: 5px 20px;
         }
 
         .header img {
@@ -55,7 +55,7 @@
             justify-content: center;
             gap: 20px;
             position: fixed;
-            top: 90px;
+            top: 40px;
             z-index: 999;
             background-color: transparent;
             padding: 10px 0;
@@ -63,7 +63,7 @@
 
         .nav a {
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 8px 15px;
             background: #0056b3;
             color: white;
             border-radius: 5px;
@@ -80,19 +80,19 @@
 
         .container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1300px;
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding: 10px;
-            margin-top: 100px;
+            padding: 20px;
+            margin-top: 40px;
         }
 
         iframe {
             width: 100%;
-            height: calc(100vh - 180px);
+            height: calc(100vh - 150px);
             border: 0;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -126,14 +126,14 @@
 <body>
 
     <div class="header">
-        <img src="logo02.jpg" alt="Work Eletro Sistemas">
-        <div class="title">SISTEMA DE AGENDAMENTO ONLINE</div>
+        <!--<img id="headerLogo" src="logo02.jpg" alt="Work Eletro Sistemas">-->
+        <div class="title">SISTEMA DE AGENDAMENTO ONLINE</div><br>
     </div>
 
     <div class="nav">
-        <a href="?view=agendamento">📅 Agendar Serviço</a>
-        <a href="?view=calendario">📆 Agenda da Work</a>
-        <a href="?view=chelb">📅 Agenda da Chelb</a>
+        <a href="?view=agendamento" onclick="changeImage('logo02.jpg')">📅 Agendar Serviço</a>
+        <a href="?view=calendario" onclick="changeImage('logo02.jpg')">📆 Agenda da Work</a>
+        <a href="?view=chelb" onclick="changeImage('logo01.png')">📅 Agenda da Chelb</a>
     </div>
 
     <div class="container">
@@ -141,14 +141,21 @@
     </div>
 
     <div class="footer">
-        © 2025 Work Eletro Sistemas - <a href="https://www.linkedin.com/in/deividfcastro/">Desenvolvido por Deivid Castro</a>
+     Sistema desenvolvido por <a href="https://www.linkedin.com/in/deividfcastro/"> Deivid Castro</a>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const view = urlParams.get('view');
         const iframe = document.getElementById('calendarFrame');
+        const headerLogo = document.getElementById('headerLogo');
 
+        // Função para alterar a imagem
+        function changeImage(logo) {
+            headerLogo.src = logo;
+        }
+
+        // Verifica a visualização e atualiza o iframe
         if (view === 'calendario') {
             iframe.src = "https://calendar.google.com/calendar/embed?src=workeletrosistemaswork%40gmail.com&ctz=America%2FSao_Paulo";
         } else if (view === 'chelb') {
