@@ -20,11 +20,11 @@
             color: white;
             text-align: center;
             padding: 20px 0;
-            position: fixed; /* Fixa o topo */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Garante que o topo fique sobre outros elementos */
+            z-index: 1000;
         }
 
         /* Logo pequeno no topo */
@@ -33,7 +33,7 @@
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            height: 40px; /* Defina o tamanho desejado para a logo */
+            height: 40px;
         }
 
         /* Estilo do título */
@@ -46,48 +46,47 @@
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 15px; /* Diminuído para espaçamento menor */
+            gap: 15px;
             position: fixed;
-            top: 80px; /* Fixar os botões logo abaixo do topo */
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1001; /* Garante que os botões fiquem sobre o conteúdo */
+            z-index: 1001;
         }
 
         .button {
             background-color: #007BFF;
             color: white;
-            padding: 8px 16px; /* Ajustado para diminuir o tamanho */
+            padding: 8px 16px;
             border: none;
             border-radius: 5px;
-            font-size: 14px; /* Tamanho da fonte reduzido */
+            font-size: 14px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px; /* Ajustado para espaçamento menor entre texto e ícone */
+            gap: 8px;
         }
 
         .button:hover {
             background-color: #0056b3;
         }
 
-        /* Ícones dentro dos botões */
         .button i {
-            font-size: 18px; /* Ícone um pouco menor */
+            font-size: 18px;
         }
 
         /* Estilo do iframe */
         .calendar {
             display: none;
             width: 100%;
-            height: calc(100vh - 180px); /* Ajusta o iframe para o restante da tela (altura da tela - topo e botões fixos) */
+            height: calc(100vh - 180px);
             border: none;
             position: fixed;
-            top: 140px; /* Coloca o iframe logo abaixo dos botões fixos */
+            top: 140px;
             left: 0;
-            z-index: 999; /* Garante que o iframe fique abaixo dos botões fixos */
+            z-index: 999;
         }
 
         .show {
@@ -119,7 +118,6 @@
             display: block;
         }
 
-        /* Responsividade para telas menores */
         @media (max-width: 768px) {
             header {
                 padding: 15px 0;
@@ -135,26 +133,26 @@
             }
 
             .calendar {
-                height: calc(100vh - 140px); /* Ajuste da altura para telas pequenas */
+                height: calc(100vh - 140px);
             }
         }
 
         /* Estilo do rodapé fixo */
         footer {
-            background-color: #D3D3D3; /* Cor cinza claro */
+            background-color: #D3D3D3;
             color: black;
             text-align: center;
-            padding: 3px; /* Diminuído para menor altura */
+            padding: 3px;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Garante que o rodapé fique sobre outros elementos */
-            font-size: 12px; /* Tamanho de fonte reduzido */
+            z-index: 1000;
+            font-size: 12px;
         }
 
         footer a {
-            color: blue; /* Altera a cor do link para azul */
+            color: blue;
             text-decoration: none;
         }
 
@@ -162,16 +160,15 @@
             text-decoration: underline;
         }
 
-        /* Cor da frase do rodapé */
         footer p {
-            color: rgb(26, 26, 27); /* Frase em azul */
+            color: rgb(26, 26, 27);
             font-weight: bold;
         }
     </style>
 </head>
 <body>
     <header>
-        <img id="logo" src="logo01.png" alt="Logo" class="logo"> <!-- Logo padrão da Chelb -->
+        <img id="logo" src="logo02.png" alt="Logo" class="logo"> <!-- Logo para a Agenda Work -->
         <h1>SISTEMA DE CONSULTA DE AGENDAMENTO ONLINE</h1>
     </header>
 
@@ -202,63 +199,67 @@
 
     <!-- Mapa das rotas -->
     <div id="mapa" class="calendar" style="display:none;">
-      <iframe src="https://www.google.com/maps/d/embed?mid=1OBgyjKrEvtqg_DxmClvBY4uHPDecRkM&hl=pt-BR&ehbc=2E312F" width="100%" height="100%"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1OBgyjKrEvtqg_DxmClvBY4uHPDecRkM&hl=pt-BR&ehbc=2E312F" width="100%" height="100%"></iframe>
     </div>
 
     <!-- Caixa de informações -->
     <div id="informacao" class="informacao">
         <p>
-            O horário das <b>11:00hs</b> não pode ser reservado, pois é fixo para o <b>cliente GRAMMER.</b> 
-            Porém, se houver alguma entrega <b>agendada pela DHL como exemplo "CPFL"</b>, esse horário pode ser liberado. 
+            O horário das <b>11:00hs</b> não pode ser reservado, pois é fixo para o <b>cliente GRAMMER.</b>
+            Porém, se houver alguma entrega <b>agendada pela DHL como exemplo "CPFL"</b>, esse horário pode ser liberado.
             <p>Vamos ter dois motoristas disponíveis para os serviços de frete, mas se tiver serviços para a <b>Empresa CHELB (o motorista da Chelb é exclusivo para isso).</b></p>
-           <p>Se precisar de outro motorista, vamos contratar um frete adicional para cobrir qualquer imprevisto nas entregas e coletas da Empresa WORK, <b>isso só será feito com muita urgência e aprovação.</b></p> 
+            <p>Se precisar de outro motorista, vamos contratar um frete adicional para cobrir qualquer imprevisto nas entregas e coletas da Empresa WORK, <b>isso só será feito com muita urgência e aprovação.</b></p>
             <p>O gestor ou o analista de logística será responsável por todos os agendamentos nesse sistema, caso não tenha janela disponível, <b>vai reagendar para outro dia ou horário, e a comunicação será feita por e-mail e estará disponível para todos visualizarem no sistema.</b></p>
-           <p>Setores que podem solicitar agendamentos:
+            <p>Setores que podem solicitar agendamentos:
         <b>Diretoria, compras, PCP, Financeiro, RH, produção, logística e qualidade,</b> uma vez solicitado
-        não quer dizer que será agendando imediatamente, setor logistica irá analisar as entregas e coletas nos melhores horários para atender a todos os setores.</p>
-            
+        não quer dizer que será agendando imediatamente, setor logística irá analisar as entregas e coletas nos melhores horários para atender a todos os setores.</p>
         </p>
     </div>
 
     <script>
+        // Função para mostrar o calendário correto
         function showCalendar(calendar) {
-            // Ocultar ambos os calendários e a caixa de informações
             document.getElementById('work').classList.remove('show');
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.remove('show-info');
-            document.getElementById('mapa').style.display = 'none'; // Esconde o mapa
+            document.getElementById('mapa').style.display = 'none';
 
-            // Mostrar o calendário selecionado
             document.getElementById(calendar).classList.add('show');
 
-            // Trocar logo dependendo do botão clicado
+            // Atualiza o iframe ao clicar
+            const iframe = document.getElementById(calendar);
+            iframe.src = iframe.src; // Recarrega o iframe
+
             if (calendar === 'work') {
-                document.getElementById('logo').src = 'logo02.png'; // Troca para logo Work
+                document.getElementById('logo').src = 'logo02.png';
             } else if (calendar === 'chelb') {
-                document.getElementById('logo').src = 'logo01.png'; // Troca para logo Chelb
+                document.getElementById('logo').src = 'logo01.png';
             }
         }
 
+        // Função para mostrar a caixa de informações
         function showInfo() {
-            // Ocultar ambos os calendários
             document.getElementById('work').classList.remove('show');
             document.getElementById('chelb').classList.remove('show');
-            document.getElementById('informacao').classList.add('show-info'); // Exibir a caixa de informações
-            document.getElementById('mapa').style.display = 'none'; // Esconde o mapa
+            document.getElementById('informacao').classList.add('show-info');
+            document.getElementById('mapa').style.display = 'none';
         }
 
+        // Função para mostrar o mapa das rotas
         function showMap() {
-            // Ocultar calendários e informações
             document.getElementById('work').classList.remove('show');
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.remove('show-info');
 
-            // Exibir o mapa
             document.getElementById('mapa').style.display = 'block';
+        }
+
+        // Ao carregar a página, abre automaticamente o calendário do 'work'
+        window.onload = function() {
+            showCalendar('work');
         }
     </script>
 
-    <!-- Rodapé fixo -->
     <footer>
         <p>Sistema desenvolvido por <a href="https://www.linkedin.com/in/deividfcastro/" target="_blank">Deivid Castro</a></p>
     </footer>
