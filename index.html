@@ -3,167 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento On-line</title>
+    <title>Sistema de Consulta de Agendamento Online</title>
+    <!-- Link para a biblioteca Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 60px;
-            padding-bottom: 60px;
-        }
-
-        .header {
-            position: fixed;
+        /* Estilo do topo */
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed; /* Fixa o topo */
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #0056b3;
-            padding: 5px 20px;
+            width: 100%;
+            z-index: 1000; /* Garante que o topo fique sobre outros elementos */
         }
 
-        .header img {
-            max-height: 50px;
-            margin-right: 20px;
+        /* Logo pequeno no topo */
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 30px; /* Defina o tamanho desejado para a logo */
         }
 
-        .title {
+        /* Estilo do título */
+        h1 {
+            margin: 0;
             font-size: 24px;
-            font-weight: bold;
-            color: white;
-            text-align: center;
         }
 
-        .nav {
-            width: 100%;
-            max-width: 1200px;
+        /* Estilo dos botões fixos próximos ao topo */
+        .buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px; /* Diminuído para espaçamento menor */
             position: fixed;
-            top: 40px;
-            z-index: 999;
-            background-color: transparent;
-            padding: 10px 0;
+            top: 80px; /* Fixar os botões logo abaixo do topo */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001; /* Garante que os botões fiquem sobre o conteúdo */
         }
 
-        .nav a {
-            text-decoration: none;
-            padding: 8px 15px;
-            background: #0056b3;
+        .button {
+            background-color: #007BFF;
             color: white;
+            padding: 8px 16px; /* Ajustado para diminuir o tamanho */
+            border: none;
             border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav a:hover {
-            background: #003d80;
-            transform: scale(1.05);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1300px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        iframe {
-            width: 100%;
-            height: calc(100vh - 150px);
-            border: 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer {
-            width: 100%;
+            font-size: 14px; /* Tamanho da fonte reduzido */
+            cursor: pointer;
             text-align: center;
-            padding: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Ajustado para espaçamento menor entre texto e ícone */
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ícones dentro dos botões */
+        .button i {
+            font-size: 18px; /* Ícone um pouco menor */
+        }
+
+        /* Estilo do iframe */
+        .calendar {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 180px); /* Ajusta o iframe para o restante da tela (altura da tela - topo e botões fixos) */
+            border: none;
+            position: fixed;
+            top: 140px; /* Coloca o iframe logo abaixo dos botões fixos */
+            left: 0;
+            z-index: 999; /* Garante que o iframe fique abaixo dos botões fixos */
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* Estilo para a mensagem de informações */
+        .informacao {
+            display: none;
+            position: fixed;
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 999;
             font-size: 14px;
-            color: #666;
-            background: #e9ecef;
+            color: #333;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .show-info {
+            display: block;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 0;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .calendar {
+                height: calc(100vh - 140px); /* Ajuste da altura para telas pequenas */
+            }
+        }
+
+        /* Estilo do rodapé fixo */
+        footer {
+            background-color: #D3D3D3; /* Cor cinza claro */
+            color: black;
+            text-align: center;
+            padding: 3px; /* Diminuído para menor altura */
             position: fixed;
             bottom: 0;
             left: 0;
-            z-index: 1000;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            z-index: 1000; /* Garante que o rodapé fique sobre outros elementos */
+            font-size: 12px; /* Tamanho de fonte reduzido */
         }
 
-        .footer a {
+        footer a {
+            color: blue; /* Altera a cor do link para azul */
             text-decoration: none;
-            color: #0056b3;
-            font-weight: bold;
         }
 
-        .footer a:hover {
+        footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Cor da frase do rodapé */
+        footer p {
+            color: blue; /* Frase em azul */
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <header>
+        <img id="logo" src="logo01.png" alt="Logo" class="logo"> <!-- Logo padrão da Chelb -->
+        <h1>SISTEMA DE CONSULTA DE AGENDAMENTO ONLINE</h1>
+    </header>
 
-    <div class="header">
-        <!--<img id="headerLogo" src="logo02.jpg" alt="Work Eletro Sistemas">-->
-        <div class="title">SISTEMA DE CONSULTA DE AGENDAMENTO ONLINE</div><br>
+    <div class="buttons">
+        <!-- Botão Informações com ícone -->
+        <button class="button" onclick="showInfo()">
+            <i class="fas fa-info-circle"></i> Informações
+        </button>
+        <!-- Botão Agenda Work com ícone -->
+        <button class="button" onclick="showCalendar('work')">
+            <i class="fas fa-calendar-alt"></i> Agenda Work
+        </button>
+        <!-- Botão Agenda Chelb com ícone -->
+        <button class="button" onclick="showCalendar('chelb')">
+            <i class="fas fa-calendar-alt"></i> Agenda Chelb
+        </button>
+        <!-- Botão Mapa das Rotas com ícone -->
+        <button class="button" onclick="showMap()">
+            <i class="fas fa-map-marker-alt"></i> Mapa das Rotas
+        </button>
     </div>
 
-    <div class="nav">
-        <!--<a href="?view=agendamento" onclick="changeImage('logo02.jpg')">📅 Agendar Serviço</a>-->
-        <a href="?view=calendario" onclick="changeImage('logo02.jpg')">📆 Agenda da Work</a>
-        <a href="?view=chelb" onclick="changeImage('logo01.png')">📅 Agenda da Chelb</a>
+    <!-- Calendário do Work -->
+    <iframe id="work" class="calendar" src="https://calendar.google.com/calendar/embed?src=workeletrosistemaswork%40gmail.com&ctz=America%2FSao_Paulo" frameborder="0" scrolling="no"></iframe>
+    
+    <!-- Calendário do Chelb -->
+    <iframe id="chelb" class="calendar" src="https://calendar.google.com/calendar/embed?src=72c355eb959dc6d741d2a021bb3de8fd0d4baa068cca2b35276ff14f0966b28d%40group.calendar.google.com&ctz=America%2FSao_Paulo" frameborder="0" scrolling="no"></iframe>
+
+    <!-- Mapa das rotas -->
+    <div id="mapa" class="calendar" style="display:none;">
+      <iframe src="https://www.google.com/maps/d/u/6/embed?mid=1OBgyjKrEvtqg_DxmClvBY4uHPDecRkM&ehbc=2E312F" width="100%" height="100%"></iframe>
     </div>
 
-    <div class="container">
-        <iframe id="calendarFrame"></iframe>
-    </div>
-
-    <div class="footer">
-     Sistema desenvolvido por <a href="https://www.linkedin.com/in/deividfcastro/"> Deivid Castro</a>
+    <!-- Caixa de informações -->
+    <div id="informacao" class="informacao">
+        <p>
+            O horário das 11:00 não pode ser reservado, pois é fixo para o GRAMMER. Porém, se houver alguma entrega agendada pela DHL, como da CPFL, esse horário pode ser liberado. Vamos ter dois motoristas disponíveis para os serviços de frete, mas se tiver algo para a CHELB (o motorista Felício é exclusivo para isso), e se precisar de outro motorista, vamos contratar um frete adicional para cobrir qualquer imprevisto nas entregas e coletas da WORK se houver necessidade. O responsável pela logística e pelos agendamentos é o gestor do estoque ou o analista da logística, que, caso necessário, vai reagendar para outro dia ou horário disponível, e a comunicação deverá ser feita por e-mail ou outro meio escrito.
+        </p>
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const view = urlParams.get('view');
-        const iframe = document.getElementById('calendarFrame');
-        const headerLogo = document.getElementById('headerLogo');
+        function showCalendar(calendar) {
+            // Ocultar ambos os calendários e a caixa de informações
+            document.getElementById('work').classList.remove('show');
+            document.getElementById('chelb').classList.remove('show');
+            document.getElementById('informacao').classList.remove('show-info');
+            document.getElementById('mapa').style.display = 'none'; // Esconde o mapa
 
-        // Função para alterar a imagem
-        function changeImage(logo) {
-            headerLogo.src = logo;
+            // Mostrar o calendário selecionado
+            document.getElementById(calendar).classList.add('show');
+
+            // Trocar logo dependendo do botão clicado
+            if (calendar === 'work') {
+                document.getElementById('logo').src = 'logo02.png'; // Troca para logo Work
+            } else if (calendar === 'chelb') {
+                document.getElementById('logo').src = 'logo01.png'; // Troca para logo Chelb
+            }
         }
 
-        // Verifica a visualização e atualiza o iframe
-        if (view === 'calendario') {
-            iframe.src = "https://calendar.google.com/calendar/embed?src=workeletrosistemaswork%40gmail.com&ctz=America%2FSao_Paulo";
-        } else if (view === 'chelb') {
-            iframe.src = "https://calendar.google.com/calendar/embed?src=72c355eb959dc6d741d2a021bb3de8fd0d4baa068cca2b35276ff14f0966b28d%40group.calendar.google.com&ctz=America%2FSao_Paulo";
-        } else {
-            iframe.src = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0GHdtUuFGDkvGn8GjOPodK1RKPR4lBBAyGNJ1Px7DKzyEtGv0FoM2I-22XUQFg8eYR8SHj8XtT?gv=true";
+        function showInfo() {
+            // Ocultar ambos os calendários
+            document.getElementById('work').classList.remove('show');
+            document.getElementById('chelb').classList.remove('show');
+            document.getElementById('informacao').classList.add('show-info'); // Exibir a caixa de informações
+            document.getElementById('mapa').style.display = 'none'; // Esconde o mapa
+        }
+
+        function showMap() {
+            // Ocultar calendários e informações
+            document.getElementById('work').classList.remove('show');
+            document.getElementById('chelb').classList.remove('show');
+            document.getElementById('informacao').classList.remove('show-info');
+
+            // Exibir o mapa
+            document.getElementById('mapa').style.display = 'block';
         }
     </script>
 
+    <!-- Rodapé fixo -->
+    <footer>
+        <p>Sistema desenvolvido por <a href="https://www.linkedin.com/in/deividfcastro/" target="_blank">Deivid Castro</a></p>
+    </footer>
 </body>
 </html>
