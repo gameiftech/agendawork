@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Estilo do topo */
@@ -139,7 +140,7 @@
 
         /* Estilo do rodapé fixo */
         footer {
-            background-color: #D3D3D3;
+            background-color: #d1cece;
             color: black;
             text-align: center;
             padding: 3px;
@@ -152,7 +153,7 @@
         }
 
         footer a {
-            color: blue;
+            color: #0056b3;
             text-decoration: none;
         }
 
@@ -164,12 +165,61 @@
             color: rgb(26, 26, 27);
             font-weight: bold;
         }
+
+        /* Estilos para o tema escuro */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header.dark-mode {
+            background-color: #333;
+        }
+
+        footer.dark-mode {
+            background-color: #333;
+            color: #e0e0e0;
+           
+        }
+        footer.dark-mode p {
+            background-color: #333;
+            color: #e0e0e0;
+           
+        }
+        footer.dark-mode a{
+            color: #08b2c9;
+           
+        }
+        .button.dark-mode {
+            background-color: #555;
+        }
+
+        .button.dark-mode:hover {
+            background-color: #444;
+        }
+
+        /* Posicionando o botão de tema do lado direito */
+        #toggle-theme {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <header>
         <img id="logo" src="logo02.png" alt="Logo" class="logo"> <!-- Logo para a Agenda Work -->
         <h1>SISTEMA DE CONSULTA DE AGENDAMENTO ONLINE</h1>
+        <!-- Botão para alternar entre claro e escuro posicionado à direita -->
+        <button class="button" id="toggle-theme" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i> 
+        </button>
     </header>
 
     <div class="buttons">
@@ -205,23 +255,15 @@
     <!-- Caixa de informações -->
     <div id="informacao" class="informacao">
         <p>
-            <p>
-    O horário das <b>11:00hs</b> é reservado para o <b>cliente GRAMMER.</b>
-    No entanto, caso haja alguma entrega <b>agendada pela DHL, como no caso da "CPFL"</b>, esse horário pode ser liberado.
-</p>
-<p>
-    Teremos dois motoristas disponíveis para os serviços de frete, mas, caso seja necessário para a <b>empresa CHELB</b>, o motorista da CHELB será exclusivo para essa função.
-</p>
-<p>
-    Se houver necessidade de um motorista adicional, podemos contratar um frete extra para cobrir qualquer imprevisto nas entregas e coletas da <b>empresa WORK</b>. <b>Essa contratação será feita apenas em casos de urgência e com a devida aprovação.</b>
-</p>
-<p>
-    O gestor ou analista de logística será responsável pelos agendamentos no sistema. Se não houver janela disponível, <b>será feito um reagendamento para outro dia ou horário, e a comunicação será enviada por e-mail, sendo acessível a todos no sistema.</b>
-</p>
-<p>
-    Os setores que podem solicitar agendamentos são: <b>Diretoria, Compras, PCP, Financeiro, RH, Produção, Logística e Qualidade.</b> Vale ressaltar que o simples pedido não garante agendamento imediato, pois o setor de Logística analisará os melhores horários para atender a todos os setores de forma eficiente.
-</p>
-
+            O horário das <b>11:00hs</b> não pode ser reservado, pois é fixo para o <b>cliente GRAMMER.</b>
+            Porém, se houver alguma entrega <b>agendada pela DHL como exemplo "CPFL"</b>, esse horário pode ser liberado.
+            <p>Vamos ter dois motoristas disponíveis para os serviços de frete, mas se tiver serviços para a <b>Empresa CHELB (o motorista da Chelb é exclusivo para isso).</b></p>
+            <p>Se precisar de outro motorista, vamos contratar um frete adicional para cobrir qualquer imprevisto nas entregas e coletas da Empresa WORK, <b>isso só será feito com muita urgência e aprovação.</b></p>
+            <p>O gestor ou o analista de logística será responsável por todos os agendamentos nesse sistema, caso não tenha janela disponível, <b>vai reagendar para outro dia ou horário, e a comunicação será feita por e-mail e estará disponível para todos visualizarem no sistema.</b></p>
+            <p>Setores que podem solicitar agendamentos:
+        <b>Diretoria, compras, PCP, Financeiro, RH, produção, logística e qualidade,</b> uma vez solicitado
+        não quer dizer que será agendando imediatamente, setor logística irá analisar as entregas e coletas nos melhores horários para atender a todos os setores.</p>
+        </p>
     </div>
 
     <script>
@@ -253,13 +295,35 @@
             document.getElementById('mapa').style.display = 'none';
         }
 
-        // Função para mostrar o mapa das rotas
+        // Função para mostrar o mapa das rotas e recarregar o iframe
         function showMap() {
             document.getElementById('work').classList.remove('show');
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.remove('show-info');
 
             document.getElementById('mapa').style.display = 'block';
+
+            // Recarrega o iframe do mapa
+            const iframe = document.querySelector('#mapa iframe');
+            iframe.src = iframe.src; // Recarrega o iframe
+        }
+
+        // Função para alternar entre tema claro e escuro
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('header').classList.toggle('dark-mode');
+            document.querySelector('footer').classList.toggle('dark-mode');
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => button.classList.toggle('dark-mode'));
+
+            const icon = document.querySelector('#toggle-theme i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
         }
 
         // Ao carregar a página, abre automaticamente o calendário do 'work'
