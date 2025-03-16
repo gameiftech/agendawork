@@ -58,7 +58,7 @@
         .button {
             background-color: #007BFF;
             color: white;
-            padding: 8px 16px;
+            padding: 4px 16px;
             border: none;
             border-radius: 5px;
             font-size: 14px;
@@ -79,7 +79,7 @@
         }
 
         /* Estilo do iframe */
-        .calendar {
+        .calendar, .graph {
             display: none;
             width: 100%;
             height: calc(100vh - 180px);
@@ -133,7 +133,7 @@
                 padding: 8px 16px;
             }
 
-            .calendar {
+            .calendar, .graph {
                 height: calc(100vh - 140px);
             }
         }
@@ -191,11 +191,11 @@
            
         }
         .button.dark-mode {
-            background-color: #555;
+            background-color: #007BFF;
         }
 
         .button.dark-mode:hover {
-            background-color: #444;
+            background-color: #0056b3;
         }
 
         /* Posicionando o botão de tema do lado direito */
@@ -239,6 +239,10 @@
         <button class="button" onclick="showMap()">
             <i class="fas fa-map-marker-alt"></i> Mapa das Rotas
         </button>
+        <!-- Botão Gráfico com ícone -->
+        <button class="button" onclick="showGraph()">
+            <i class="fas fa-chart-line"></i> Dados e gráficos
+        </button>
     </div>
 
     <!-- Calendário do Work -->
@@ -250,6 +254,11 @@
     <!-- Mapa das rotas -->
     <div id="mapa" class="calendar" style="display:none;">
         <iframe src="https://www.google.com/maps/d/embed?mid=1OBgyjKrEvtqg_DxmClvBY4uHPDecRkM&hl=pt-BR&ehbc=2E312F" width="100%" height="100%"></iframe>
+    </div>
+
+    <!-- Gráfico -->
+    <div id="graph" class="graph">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vREhM1s8WQOfhuAlqi7IhOlRTo7Lxr10unrkCVrxxK8f6Dt9gFpOoP8HX8ExlZ3Nc4_y6n-rrzKrUO7/pubchart?oid=1095707033&amp;format=interactive" width="100%" height="100%" seamless frameborder="0" scrolling="no"></iframe>
     </div>
 
     <!-- Caixa de informações -->
@@ -273,6 +282,7 @@
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.remove('show-info');
             document.getElementById('mapa').style.display = 'none';
+            document.getElementById('graph').classList.remove('show');
 
             document.getElementById(calendar).classList.add('show');
 
@@ -293,6 +303,7 @@
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.add('show-info');
             document.getElementById('mapa').style.display = 'none';
+            document.getElementById('graph').classList.remove('show');
         }
 
         // Função para mostrar o mapa das rotas e recarregar o iframe
@@ -300,11 +311,26 @@
             document.getElementById('work').classList.remove('show');
             document.getElementById('chelb').classList.remove('show');
             document.getElementById('informacao').classList.remove('show-info');
+            document.getElementById('graph').classList.remove('show');
 
             document.getElementById('mapa').style.display = 'block';
 
             // Recarrega o iframe do mapa
             const iframe = document.querySelector('#mapa iframe');
+            iframe.src = iframe.src; // Recarrega o iframe
+        }
+
+        // Função para mostrar o gráfico e recarregar o iframe
+        function showGraph() {
+            document.getElementById('work').classList.remove('show');
+            document.getElementById('chelb').classList.remove('show');
+            document.getElementById('informacao').classList.remove('show-info');
+            document.getElementById('mapa').style.display = 'none';
+
+            document.getElementById('graph').classList.add('show');
+
+            // Recarrega o iframe do gráfico
+            const iframe = document.querySelector('#graph iframe');
             iframe.src = iframe.src; // Recarrega o iframe
         }
 
